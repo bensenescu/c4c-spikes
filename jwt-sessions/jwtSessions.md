@@ -107,3 +107,39 @@ Two Common Methods:
   console.log(decoded.foo) // bar
   ```
   - List of Libraries commonly used for JWT [here](https://jwt.io) (in Libraries section)
+  
+  - For Java, we will likely want to use one of the libraries provided by [Vert.x](https://github.com/vert-x3/vertx-auth) or [Auth0](https://github.com/auth0/java-jwt)
+    - For Vert.x, use `maven: io.vertx / vertx-auth-jwt / 3.5.1`
+    - The Maven dependency syntax for Auth0 is included in the link above
+
+### Certificates
+  - If X.509, PGP, or SDSI certificates are used, then we will likely want to use the [`Certificate` Java class](https://docs.oracle.com/javase/8/docs/api/java/security/cert/Certificate.html) to generate our public key for the back end
+  ```java
+    public static void main(String[] args) throws FileNotFoundException, IOException, CertificateException {
+    try(java.io.InputStream is = new java.io.FileInputStream(FILENAME)) {
+      java.security.cert.CertificateFactory cf = java.security.cert.CertificateFactory.getInstance("X.509");
+
+      java.security.cert.X509Certificate cert = (java.security.cert.X509Certificate) cf.generateCertificate(is);
+
+      System.out.println(Main.bytesToHex(cert.getPublicKey().getEncoded()));
+
+    is.close();
+    }
+ ```
+   But without printing out the public key.
+   [An example is shown here](https://repl.it/repls/UntriedFormalCalculator)
+    
+  - If X.509 certificates are used, then for the front end we will want to look at something like [PKI.js](http://pkijs.org/) to generate the public key
+  ```js
+      //require("babel-polyfill"); // Would be required only if you compiled PKI.js for Node <= v4
+    const asn1js = require("asn1js");
+    const pkijs = require("pkijs");
+    const Certificate = pkijs.Certificate;
+ 
+    const buffer = new Uint8Array([
+        // ... cert hex bytes ...
+    ]).buffer;
+ 
+    const asn1 = asn1js.fromBER(buffer);
+    const certificate = new Certificate({ schema: asn1.result });
+ ```
