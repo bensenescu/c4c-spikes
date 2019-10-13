@@ -60,3 +60,26 @@ HMACSHA256(encodedString, 'secret');
 ```
 
 The `'secret'` is a signature held by the server. This is how the server can verify existing tokens and sign new ones
+
+### How JSON Web Tokens Work
+- A JWT is returned when a user logs in with credentials.
+- Whenever a user needs to access protected resource/source, the user agent sends a JWT, typically in the **Authorization** header using the **Bearer** schema (as shown below).
+```js
+Authorization: Bearer <token>
+```
+- The server's routes will check if a valid JWT exists in the `Authorization` header. If present, the user can access the protected resources.
+- The JWT can sometimes have useful data which avoids having to query databases for more information.
+- This method of sending tokens in the `Authorization` header does not use cookies and is stateless (aka the user state is never stored in server memory).
+
+*Security Notes:*
+  - Tokens are credentials and should not be stored longer than necessary.
+    - Using things like the [local storage](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#local-storage) of your browser to store sensitive information is generally considered bad practice due to security concerns.
+  - Signed tokens expose information to users which they can read but not modify. So, you should not put secret information within the tokens.
+
+### Why Use JSON Web Tokens?
+- Less verbose than XML and smaller in size. More compact than Security Assertion Markup Language Tokens (SAML).
+- Simple Web Tokens (SWT) need shared keys. JWT can have public/private key pairs using  X.509 certificate for signing.
+- JSON parsers are ubiquitous and it's easier to map JSON to objects than for XML/Document Based formats.
+- JWT is used at an internet scale, meaning client-side processing is much easier.
+- Information is self-contained. No need to constantly refer to database.
+- Allows granular security, or the ability to specify a particular set of permissions in the token, which improves debuggability.
