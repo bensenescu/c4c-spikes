@@ -98,7 +98,8 @@ Two Common Methods:
 ### Our Use Cases for JSON Web Tokens
   - Most likely not for typical login flow
   - Would use instead for single-sign-on functionality
-    - e.g., a C4C general sign in
+    - e.g. a C4C general sign in that would return a JWT to the requester
+  - Can also use for transferring data between different APIs, whether our own (e.g. single-sign-on or maybe in doing something where we would transfer data between Speak for the Trees and Lucy's Love Bus) or when communicating with external APIs.
 
 ### Libraries
   - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) library can be used to encode/decode JWT.
