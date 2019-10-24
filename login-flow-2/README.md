@@ -40,3 +40,31 @@
   4. Create link with key appended to it that will redirect to a page where that key will allow the user to update the user's password
   5. If timestamp is expired, redirect to home and display 'invalid key' message
   6. Back-end sends password reset link to email/phone using SendGrid/Twilio
+  
+### External APIs for Logins
+  - Could use an external service for handling user sign up, login, and communications
+    - [Outseta](https://www.outseta.com/) allows login, sign up, email services, platform help desk
+    - [Auth0](https://auth0.com/) allows login, sign up, and 2FA (possibly email)
+  - Pros
+    - Storing sensitive user info would be handled for us
+    - We would get all necessary info from their servers when they login in the form of a JWT
+    - Can make requests to their database to get whatever info we need (except for passwords/password hashes)
+    - They handle most of sign up/login (Ouseta provides a script for a popup that handles everything for you)
+  - Cons
+    - They cost money
+    - Outseta
+      - Free <= 25 users
+      - $29/mo <= 1000 users
+      - $50/mo <= 3000 users 
+      - ...
+    - Auth0
+      - Free <= 7000 active users
+      - $23/mo <= 8000 active users
+      - $57/mo <= 9500 active users
+      - ...
+
+## Further Reading
+  - [Outseta API](https://documenter.getpostman.com/view/3613332/outseta-rest-api-v1/7TNfr6k?version=latest#intro)
+  - [Salting password hashes](https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/)
+  - [Token based auth](https://stackoverflow.com/questions/1592534/what-is-token-based-authentication)
+  - [JWTs in session](https://medium.com/@sherryhsu/session-vs-token-based-authentication-11a6c5ac45e4)
