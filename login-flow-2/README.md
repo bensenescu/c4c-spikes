@@ -11,6 +11,18 @@
   7. If no further steps, redirect to home page or account page
 
 ## Login
+  1. Front-end sends username/email, password, and remember me form info to back-end
+  2. Back-end get user info by username and compare saved hashed password to given hashed password and salt
+  3. If it matches, then in the user's session save a session token and the username (possibly as JWT???)
+  4. Save username and password hash to sessions DB table
+  
+## On Every Secure Page
+  - During the constructor, call a superclass 'webpage' constructor that does the following
+    1. Get username and session token from sessions DB table from username stored in session
+    2. Compare session token in DB to session token in user's session
+    3. If applicable (when using JWTs), determine if signature matches certificate to see if any edits have been made
+      - Must use JWT if session data is not encrypted or signed
+    4. Save current user info (at least username) to some field in this page's class
 
 ### Admin Login
 
