@@ -1,0 +1,61 @@
+Docker is a PAAS for distributing "containers"
+
+A container is a standardized unit of software that abstracts away the details of whatever
+	operating system the program is being run on 
+	
+Allows for easily sharing and distributing work and being certain that everyone will be able 
+	to run the program 
+	
+Using docker is similar to git, docker leverages a cli and "DockerHub" that allows users 
+	to share images 
+	
+Docker could be useful for c4c development in the following ways:
+	hosting our services (it's easy to ship images to cloud compute or on prem machines etc)
+	sharing applications between us 
+	leveraging pre made open source docker containers that can be extended 
+	
+Basic Docker Concepts:
+	
+	Image: static virtualization of an operating system 
+	
+	Container: an implementation of an application that runs on an virtual operating 
+		system defined in an image
+		
+		container instanceof image #true 
+		
+		
+Kubernetes:
+
+What it is:
+
+	container orchestration tool
+
+What it can be used for:
+
+suppose we have a two service website architecture
+A frontend and a backend
+both of these services are dockerized and run on containers
+
+Kubernetes is useful for 3 things with our website
+deployment of containers
+development of containers
+monitoring of containers
+
+Example:
+
+Let's say kubernetes monitoring functionality is informing us that our back end container is under heavy load and latency increases.
+We can use kubernete's deployment functionality to easily spin up more isntances of our back end on other nodes and automatically distribute work across all of our back end isntances.
+
+Example:
+
+Our frontend crashes. Kubernetes can detect this and redeploy based on preconfigured settings.
+
+Example:
+
+Back end and front end run on seperate nodes on seperate containers, how can they talk to eachother?
+Kubernetes allows for the wrapping of a "deployment" in something called as "service". Kubernetes can then allow for different services to talk to eachother over public ip space without much configuration.
+
+Example:
+
+has a great ui for monitoring cpu load and latency for any particular "service"
+	
